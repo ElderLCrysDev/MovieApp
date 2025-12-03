@@ -41,35 +41,38 @@ export default function Home() {
     carregarFilmes(page);
   }, [page]);
 
-  async function carregarFilmes(p = 1) {
+  async function carregarFilmes(p = 1, term = searchTerm) {
     setLoading(true);
+ 
+    const currentSearchTerm = term || searchTerm; 
     try {
       let data;
-      if (searchTerm) {
-        data = await buscarFilmes(searchTerm, p);
+      if (currentSearchTerm) {
+        data = await buscarFilmes(currentSearchTerm, p);
       } else {
         data = await getFilmesPopulares(p);
       }
-      setFilmes(data.results);
-      setTotalPages(data.total_pages || 1);
-    } catch (err) {
-      console.error("Erro ao buscar filmes", err);
-      alert("Erro ao carregar filmes. Verifique se você está logado.");
-    } finally {
+        setFilmes(data.results);
+        setTotalPages(data.total_pages || 1);
+      } catch (err) {
+        console.error("Erro ao buscar filmes", err);
+        alert("Erro ao carregar filmes. Verifique se você está logado.");
+      } finally {
       setLoading(false);
     }
   }
 
   async function handleSearch(e) {
     e.preventDefault();
-    if (!query.trim()) {
-      setSearchTerm("");
-      setPage(1);
-      return carregarFilmes(1);
-    }
-    setSearchTerm(query);
+    const newQuery = query.trim(); // Obtém o valor atual de 'query'
+  if (!newQuery) {
+    setSearchTerm("");
     setPage(1);
-    carregarFilmes(1);
+    return carregarFilmes(1, ""); 
+  } 
+    setSearchTerm(newQuery);
+    setPage(1);    
+    carregarFilmes(1, newQuery); 
   }
 
   function handleMouseEnter(filme) {
