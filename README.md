@@ -101,3 +101,11 @@ Observações Importantes
 - **Nunca comite chaves sensíveis** em repositórios públicos.
 - O projeto já está configurado para ler as chaves do `appsettings.Development.json` e `.env.local`.
 - Para rodar em outro computador, cada usuário precisa criar seus próprios arquivos de configuração com as chaves dele.
+
+Gifs e Prints da Execução
+-------------------------
+
+![Demonstração da aplicação](./assets/AppTest.gif)
+![Tela de login](./assets/Auth_Login.png)  
+![Validação de login](./assets/Login_Error_Validation.png)  
+![Lista de filmes populares](./assets/Movies_Populares.png)  
